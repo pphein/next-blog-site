@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+/* 
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -30,4 +30,11 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+} */
+
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400&family=Fauna+One&display=swap");
+
+body {
+  font-family: 'Cinzel';
+  overflow-x: hidden;
 }
