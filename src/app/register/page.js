@@ -61,20 +61,20 @@ const Register = () => {
                         <div className="flex flex-col mb-6">
                             <div className="flex">
                                 <input
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    type="email"
+                                    onChange={(e) => setUsername(e.target.value)}
+                                    type="text"
                                     className="rounded-r-lg flex-1 appearance-none border-gray-400 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 fucus:border-transparent"
-                                    placeholder="Your email"
+                                    placeholder="Your username"
                                 />
                             </div>
                         </div>
                         <div className="flex flex-col mb-6">
                             <div className="flex">
                                 <input
-                                    onChange={(e) => setUsername(e.target.value)}
-                                    type="text"
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    type="email"
                                     className="rounded-r-lg flex-1 appearance-none border-gray-400 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 fucus:border-transparent"
-                                    placeholder="Your username"
+                                    placeholder="Your email"
                                 />
                             </div>
                         </div>
@@ -89,7 +89,7 @@ const Register = () => {
                             </div>
                         </div>
                         <div className="flex w-full">
-                            <button className="py-2 px-4 bg-primary hover:bg-blue-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition-all duration-300">
+                            <button type="submit" className="py-2 px-4 bg-primary hover:bg-blue-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition-all duration-300">
                                 Register
                             </button>
                         </div>

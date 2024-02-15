@@ -4,15 +4,16 @@ import dbConnect from "@/lib/db";
 
 export async function POST(req) {
     try {
+        console.log(req);
         await dbConnect();
-        const { username, email, password: pass } = await req.json();
-        const isExisting = await User.findOne({ email: email }).maxTimeMS(30000);
+        const { email, username, password: pass } = await req.json();
+        const isExisting = await User.findOne({ username: username }).maxTimeMS(30000);
         if (isExisting) {
             throw new Error("User already exists");
         }
 
         const hashedPassword = await bcrypt.hash(pass, 10);
-        const newUser = await User.create({ username, email, password: hashedPassword });
+        const newUser = await User.create({ email: email, username: username, password: hashedPassword });
 
         const { password, ...user } = newUser._doc;
 

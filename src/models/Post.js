@@ -15,11 +15,11 @@ const PostSchema = new mongoose.Schema({
         type: String,
         // required: true,
         enum: [
-            'Sports',
-            'Money',
-            'News',
-            'Teach',
-            'Programming'
+            'sports',
+            'money',
+            'news',
+            'tech',
+            'programming'
         ]
     },
     authorId: {

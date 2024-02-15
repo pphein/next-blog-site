@@ -10,23 +10,25 @@ const handler = NextAuth({
         Credentials({
             type: 'credentials',
             credentials: {
-                username: { label: 'Email', type: 'text', placeholder: 'Kobe Brynt' },
+                email: { label: 'Email', type: 'email', placeholder: 'kobebrant@email.com' },
+                username: { label: 'Username', type: 'text', placeholder: 'Kobe Brynt' },
                 password: { label: 'Password', type: 'password' }
             },
             async authorize(credentials, req) {
-                const { email, password } = credentials;
+                // const { email, password } = credentials;
+                const { username, password } = credentials;
 
                 await dbConnect();
-                const user = await User.findOne({ email });
-
+                // const user = await User.findOne({ email: email });
+                const user = await User.findOne({ username: username });
                 if (!user) {
-                    throw new Error('Invalid input');
+                    throw new Error('Invalid input. Email not found');
                 }
 
                 const comparePass = await bcrypt.compare(password, user.password);
 
                 if (!comparePass) {
-                    throw new Error('Invalid input')
+                    throw new Error('Invalid input. Password Wrong!')
                 } else {
                     const { password, ...currentUser } = user._doc
 

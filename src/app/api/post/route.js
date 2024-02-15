@@ -26,10 +26,12 @@ export async function POST(req) {
 
     try {
         const body = await req.json();
+        console.log(body);
         const newPost = await Post.create(body);
 
         return new Response(JSON.stringify(newPost), { status: 201 });
     } catch (error) {
+        console.log(error)
         return new Response(JSON.stringify(null), { status: 500 });
     }
 }
