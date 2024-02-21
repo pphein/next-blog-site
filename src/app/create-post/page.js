@@ -4,7 +4,44 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { ToastContainer, toast } from "react-toastify";
 
+import dynamic from 'next/dynamic';
+import 'react-quill/dist/quill.snow.css'; // Import Quill styles
+
+
+const QuillEditor = dynamic(() => import('react-quill'), { ssr: false });
+
 const CreatePost = () => {
+
+    const quillModules = {
+        toolbar: [
+            [{ header: [1, 2, 3, false] }],
+            ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+            [{ list: 'ordered' }, { list: 'bullet' }],
+            ['link', 'image'],
+            [{ align: [] }],
+            [{ color: [] }],
+            ['code-block'],
+            ['clean'],
+        ],
+    };
+
+
+    const quillFormats = [
+        'header',
+        'bold',
+        'italic',
+        'underline',
+        'strike',
+        'blockquote',
+        'list',
+        'bullet',
+        'link',
+        'image',
+        'align',
+        'color',
+        'code-block',
+    ];
+
     const [title, setTitle] = useState('');
     const [desc, setDesc] = useState('');
     const [category, setCategory] = useState('');
@@ -50,6 +87,10 @@ const CreatePost = () => {
         }
     }
 
+    const handleEditorChange = (newContent) => {
+        setDesc(newContent);
+    };
+
     return (
         <section className="bg-gray-100 max-w-screen-sm m-auto p-8">
             <div className="mb-4 w-full text-4xl font-light text-center text-gray-800 uppercase sm-text-5xl">
@@ -62,7 +103,7 @@ const CreatePost = () => {
             </div>
             <div className="mt-8">
                 <form onSubmit={handleSubmit}>
-                    <div className="flex flex-col mb-6">
+                    <div className="flex flex-col mb-3">
                         <input
                             type="text"
                             onChange={(e) => setTitle(e.target.value)}
@@ -70,13 +111,22 @@ const CreatePost = () => {
                             placeholder="Title"
                         />
                     </div>
-                    <div className="flex flex-col mb-6">
-                        <input
+                    <div className="flex flex-col mb-3">
+                        {/* <input
                             type="text"
                             onChange={(e) => setDesc(e.target.value)}
                             className="w-full focus:outline-none pt-8 pb-8"
                             placeholder="Description"
-                        />
+                        /> */}
+                        <div className="h-screen flex items-center flex-col">
+                            <QuillEditor
+                                value={desc}
+                                onChange={handleEditorChange}
+                                modules={quillModules}
+                                formats={quillFormats}
+                                className="w-full h-[70%] mt-10 bg-white"
+                            />
+                        </div>
                     </div>
                     <div className="flex flex-col mb-6">
                         <select

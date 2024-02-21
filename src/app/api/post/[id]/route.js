@@ -5,13 +5,10 @@ import User from "@/models/User";
 
 export async function GET(req, ctx) {
     await dbConnect();
-
     const id = ctx.params.id;
-
     try {
         const post = await Post.findById(id).populate("authorId").select('-password');
-
-        return new Response.apply(JSON.stringify(post), { status: 200 });
+        return new Response(JSON.stringify(post), { status: 200 });
     } catch (error) {
         return new Response(JSON.stringify(null), { status: 500 });
     }
