@@ -57,16 +57,31 @@ const PostCard = ({
                         <span className="inline-block py-1 px-2 rounded bg-indigo-50 text-xs font-medium tracking-widest">
                             {category}
                         </span>
-                        <h2 className="sm:text-3xl text-2xl title-font font-medium text-gray-900 mt-4 mb-4">
+                        <Link
+                            href={`/post/${_id}`}
+                            className="sm:text-3xl text-2xl title-font font-medium text-gray-900 mt-4 mb-4 hover:text-indigo-500"
+                        >
+                            <h2 className="">
+                                {title}
+                            </h2>
+                        </Link>
+                        {/* <h2 className="sm:text-3xl text-2xl title-font font-medium text-gray-900 mt-4 mb-4">
                             {title}
-                        </h2>
+                        </h2> */}
+                        <a className="inline-flex items-center">
+                            <span className="flex-grow flex flex-col pl-4">
+                                <span className="title-font font-medium text-gray-700">
+                                    Author: {authorId.username}
+                                </span>
+                            </span>
+                        </a>
                         <p className="leading-relax mb-8">
                             {desc}
                         </p>
                         <div className="flex items-center flex-wrap pb-4 mb-4 border-b-2 border-gray-100 mt-auto w-full">
                             <Link
                                 href={`/post/${_id}`}
-                                className="text-indigo-500 inline-flex items-center"
+                                className="text-indigo-500 inline-flex items-center hover:text-indigo-800"
                             >
                                 See More
                             </Link>
@@ -80,13 +95,13 @@ const PostCard = ({
                                 }
                             </span>
                         </div>
-                        <a className="inline-flex items-center">
+                        {/* <a className="inline-flex items-center">
                             <span className="flex-grow flex flex-col pl-4">
                                 <span className="title-font font-medium text-gray-900">
                                     Author: {authorId.username}
                                 </span>
                             </span>
-                        </a>
+                        </a> */}
                     </div>
                 </div>
             </div>

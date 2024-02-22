@@ -12,7 +12,7 @@ const Register = () => {
         e.preventDefault();
 
         if (username === "" || email === "" || password === "") {
-            toast.error("Fill al fields");
+            toast.error("Fill all fields");
             return
         }
 
