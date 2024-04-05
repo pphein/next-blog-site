@@ -1,7 +1,6 @@
 import dbConnect from "@/lib/db";
 import { verifyJwtToken } from "@/lib/jwt";
 import Post from "@/models/Post";
-import User from "@/models/User";
 
 export async function GET(req, ctx) {
     await dbConnect();

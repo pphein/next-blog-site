@@ -5,14 +5,28 @@ import { BsFillPencilFill } from 'react-icons/bs';
 import { AiFillDelete, AiFillLike, AiOutlineLike } from 'react-icons/ai';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
+import Comment from '@/components/Comment';
 
 const PostDetail = (ctx) => {
     const [postDetails, setPostDetails] = useState("")
     const [isLiked, setIsLiked] = useState(false)
     const [postLikes, setPostLikes] = useState(0)
+    const [commentText, setCommentText] = useState("")
+    const [comments, setComments] = useState([])
 
     const { data: session } = useSession()
     const router = useRouter()
+
+    useEffect(() => {
+        async function fetchComments() {
+            const res = await fetch(`http://localhost:3000/api/comment/${ctx.params.id}`, { cache: 'no-store' });
+            const comments = await res.json()
+
+            setComments(comments)
+        }
+        fetchComments()
+    })
 
     useEffect(() => {
         async function fetchPost() {
@@ -25,7 +39,7 @@ const PostDetail = (ctx) => {
         }
 
         session && fetchPost()
-    }, [session])
+    })
 
     const handleDelete = async () => {
         try {
@@ -70,6 +84,42 @@ const PostDetail = (ctx) => {
             console.log(error)
         }
     }
+
+    const handleComment = async () => {
+        if (commentText?.length < 2) {
+            toast.error("Comment must be at least 2 characters long")
+            return
+        }
+
+        try {
+            const body = {
+                postId: ctx.params.id,
+                authorId: session?.user?._id,
+                text: commentText
+            }
+
+            const res = await fetch(`http://localhost:3000/api/comment`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${session?.user?.accessToken}`
+                },
+                method: "POST",
+                body: JSON.stringify(body)
+            })
+
+            const newComment = await res.json()
+
+            setComments((prev) => {
+                return [newComment, ...prev]
+            })
+
+            setCommentText("")
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
     return (
         <>
             <section className='max-w-screen-sm m-auto'>
@@ -124,6 +174,35 @@ const PostDetail = (ctx) => {
                                 </span>
                             </div>
                         </div>
+                    </div>
+                    <h2 className='text-center'>
+                        Comment Section
+                    </h2>
+                    <div>
+                        <input
+                            onChange={(e) => setCommentText(e.target.value)}
+                            value={commentText}
+                            type='text'
+                            className='w-full focus:outline-none p-8 mt-4'
+                            placeholder='Leave your comment here ...'
+                        />
+                    </div>
+                    <div>
+                        <button
+                            onClick={handleComment}
+                            className='px-6 py-2.5 rounded-md bg-primary mt-3 text-white hover:bg-blue-500'
+                        >
+                            Comment
+                        </button>
+                    </div>
+                    <div>
+                        {
+                            comments?.length > 0
+                                ? comments.map((comment) => (
+                                    <Comment key={comment._id} comment={comment} setComments={setComments} />
+                                ))
+                                : <h4>Be the first one to leave a comment!</h4>
+                        }
                     </div>
                 </div>
             </section>

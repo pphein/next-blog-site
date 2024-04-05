@@ -5,12 +5,13 @@ import Comment from "@/models/Comment";
 export async function GET(req, ctx) {
     await dbConnect();
 
-    const id = req.params.id;
+    const id = ctx.params.id;
     try {
         const comments = await Comment.find({ postId: id }).populate('authorId');
 
         return new Response(JSON.stringify(comments), { status: 200 });
     } catch (error) {
+        console.log(error)
         return new Response(JSON.stringify(null), { status: 500 });
     }
 }

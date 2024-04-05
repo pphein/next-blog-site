@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from "react";
 import { signIn } from "next-auth/react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 const Register = () => {
     const [username, setUsername] = useState("");
