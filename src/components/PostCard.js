@@ -75,9 +75,10 @@ const PostCard = ({
                                 </span>
                             </span>
                         </a>
-                        <p className="leading-relax mb-8">
+                        {/* <p className="leading-relax mb-8">
                             {desc}
-                        </p>
+                        </p> */}
+                        <div dangerouslySetInnerHTML={{ __html: desc }} />
                         <div className="flex items-center flex-wrap pb-4 mb-4 border-b-2 border-gray-100 mt-auto w-full">
                             <Link
                                 href={`/post/${_id}`}
