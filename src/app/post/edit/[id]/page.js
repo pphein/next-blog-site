@@ -51,10 +51,11 @@ const Edit = (ctx) => {
 
     const { data: session, status } = useSession();
     const router = useRouter();
+    const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000'
 
     useEffect(() => {
         async function fetchPost() {
-            const res = await fetch(`http://localhost:3000/api/post/${ctx.params.id}`)
+            const res = await fetch(`${baseUrl}/api/post/${ctx.params.id}`)
 
             const post = await res.json()
 
@@ -89,7 +90,7 @@ const Edit = (ctx) => {
                 category
             }
 
-            const res = await fetch(`http://localhost:3000/api/post/${ctx.params.id}`, {
+            const res = await fetch(`${baseUrl}/api/post/${ctx.params.id}`, {
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${session?.user?.accessToken}`

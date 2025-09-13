@@ -3,7 +3,8 @@ import PostCard from "@/components/PostCard";
 import Image from "next/image";
 
 export async function fetchPosts() {
-  const res = await fetch('http://localhost:3000/api/post', { cache: 'no-store' })
+  const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000'
+  const res = await fetch(`${baseUrl}/api/post`, { cache: 'no-store' })
   return res.json()
 }
 

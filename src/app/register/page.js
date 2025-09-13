@@ -21,7 +21,8 @@ const Register = () => {
         }
 
         try {
-            const res = await fetch('http://localhost:3000/api/register', {
+            const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000'
+            const res = await fetch(`${baseUrl}/api/register`, {
                 headers: {
                     'Content-Type': 'application/json'
                 },

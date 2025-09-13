@@ -26,7 +26,8 @@ const PostCard = ({
     const handleLike = async () => {
 
         try {
-            const res = await fetch(`http://localhost:3000/api/post/${_id}/like`, {
+            const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000'
+            const res = await fetch(`${baseUrl}/api/post/${_id}/like`, {
                 headers: {
                     'Authorization': `Bearer ${session?.user?.accessToken}`
                 },
