@@ -3,7 +3,7 @@ import PostCard from "@/components/PostCard";
 import Image from "next/image";
 
 export async function fetchPosts() {
-  const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000'
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3001'
   const res = await fetch(`${baseUrl}/api/post`, { cache: 'no-store' })
   return res.json()
 }

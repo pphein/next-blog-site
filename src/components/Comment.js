@@ -9,7 +9,7 @@ const Comment = ({ comment, setComments }) => {
 
     const handleDeleteComment = async () => {
         try {
-            const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000'
+            const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3001'
             await fetch(`${baseUrl}/api/comment/${comment?._id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`

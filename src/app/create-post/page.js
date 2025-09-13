@@ -65,8 +65,8 @@ const CreatePost = () => {
         }
 
         try {
-            const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000'
-            const res = await fetch(`{$baseUrl}/api/post`, {
+            const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3001'
+            const res = await fetch(`${baseUrl}/api/post`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${session?.user?.accessToken}`
