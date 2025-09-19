@@ -27,7 +27,7 @@ const PostDetail = (ctx) => {
 
             setComments(comments)
         }
-        fetchComments()
+        session && fetchComments()
     })
 
     useEffect(() => {
