@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import Comment from "@/components/Comment";
+import { RotatingLines } from "react-loader-spinner";
 
 const PostDetail = (ctx) => {
   const [postDetails, setPostDetails] = useState(null);
@@ -63,7 +64,7 @@ const PostDetail = (ctx) => {
         setLoading(false);
       }
     }
-    if (session) fetchPost();
+    fetchPost();
   }, [session, ctx.params.id, baseUrl]);
 
   const handleDelete = async () => {
@@ -142,7 +143,17 @@ const PostDetail = (ctx) => {
   };
 
   // --- Render Section ---
-  if (loading) return <p className="text-center">Loading...</p>;
+  if (loading) return (
+    <div className="flex items-center justify-center">
+        <RotatingLines
+        strokeColor="grey"
+        strokeWidth="5"
+        animationDuration="0.75"
+        width="96"
+        visible={true}
+        />
+    </div>
+  );
   if (error) return <p className="text-center text-red-500">{error}</p>;
 
   return (
