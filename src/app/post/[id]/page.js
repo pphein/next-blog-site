@@ -111,36 +111,51 @@ const PostDetail = (ctx) => {
 
   const handleComment = async () => {
     if (commentText?.length < 2) {
-      toast.error("Comment must be at least 2 characters long");
-      return;
+        toast.error("Comment must be at least 2 characters long");
+        return;
     }
 
     try {
-      const body = {
+        const body = {
         postId: ctx.params.id,
         authorId: session?.user?._id,
         text: commentText,
-      };
+        };
 
-      const res = await fetch(`${baseUrl}/api/comment`, {
+        const res = await fetch(`${baseUrl}/api/comment`, {
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${session?.user?.accessToken}`,
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${session?.user?.accessToken}`,
         },
         method: "POST",
         body: JSON.stringify(body),
-      });
+        });
 
-      if (!res.ok) throw new Error("Failed to post comment");
+        if (!res.ok) {
+        let message = "Failed to post comment";
+        try {
+            const errData = await res.json();
+            message = errData?.message || message;
+        } catch (_) {}
 
-      const newComment = await res.json();
-      setComments((prev) => [newComment, ...prev]);
-      setCommentText("");
+        if (res.status === 401 || res.status === 403) {
+            toast.error("Your session has expired. Please log in again.");
+            router.push("/login"); // redirect to login page
+        } else {
+            toast.error(`${res.status} ${message}`);
+        }
+        return; // stop execution
+        }
+
+        const newComment = await res.json();
+        setComments((prev) => [newComment, ...prev]);
+        setCommentText("");
     } catch (error) {
-      console.log(error);
-      toast.error("Failed to add comment");
+        console.error(error);
+        toast.error(error.message || "Failed to add comment");
     }
-  };
+    };
+
 
   // --- Render Section ---
   if (loading) return (
