@@ -127,56 +127,59 @@ const PostDetail = (ctx) => {
             <section className='max-w-screen-sm m-auto'>
                 <div className='container px-5 py-12 mx-auto'>
                     <div className='flex flex-wrap -m-12'>
-                        <div className='p-12 flex flex-col'>
-                            <h2 className='sm:text-3xl text-xl title-font font-medium text-gray-900 mt-4 mb-4 text-center'>
-                                {postDetails.title}
-                            </h2>
-                            <div className='flex items-center justify-center mt-4 gap-x-5 pt-4 pb-5'>
-                                {postDetails?.authorId?._id.toString() === session?.user?._id.toString()
-                                    ? (
-                                        <>
-                                            <Link
-                                                href={`/post/edit/${ctx.params.id}`}
-                                                className="inline-flex px-3 py-2 rounded-md text-primary font-semibold"
-                                            >
-                                                Edit <BsFillPencilFill style={{ fontSize: "24px" }} />
-                                            </Link>
-                                            <button
-                                                onClick={handleDelete}
-                                                className="inline-flex px-3 py-2 rounded-md text-primary font-semibold"
-                                            >
-                                                Delete <AiFillDelete style={{ fontSize: "24px" }} />
-                                            </button>
-                                        </>
-                                    )
-                                    : (
-                                        <>
-                                            <h2 className='text-center text-gray-400 mb-2'>
-                                                Post By: {postDetails?.authorId?.username}
-                                            </h2>
-                                        </>
-                                    )
-                                }
-                            </div>
-                            <span className='text-center py-2 px-2 rounded bg-indigo-50 text-indigo-500 text-sx font-medium tracking-widest'>
-                                {postDetails?.category}
-                            </span>
-                            {/* <p className='leading-relaxed mb-8'>
-                                {postDetails?.desc}
-                            </p> */}
-                            <div dangerouslySetInnerHTML={{ __html: postDetails?.desc }} />
-                            <div className='flex items-center flex-wrap pb-4 mb-4 border-b-2 border-gray-100 mt-auto w-full'>
-                                <span className='text-gray-400 mr-3 inline-flex items-center ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-500'>
-                                    {postLikes}
-                                    {" "}
-                                    {
-                                        isLiked
-                                            ? <AiFillLike size={16} onClick={handleLike} />
-                                            : <AiOutlineLike size={16} onClick={handleLike} />
+                        {postDetails 
+                        ? 
+                            <div className='p-12 flex flex-col'>
+                                <h2 className='sm:text-3xl text-xl title-font font-medium text-gray-900 mt-4 mb-4 text-center'>
+                                    {postDetails.title}
+                                </h2>
+                                <div className='flex items-center justify-center mt-4 gap-x-5 pt-4 pb-5'>
+                                    {postDetails?.authorId?._id.toString() === session?.user?._id.toString()
+                                        ? (
+                                            <>
+                                                <Link
+                                                    href={`/post/edit/${ctx.params.id}`}
+                                                    className="inline-flex px-3 py-2 rounded-md text-primary font-semibold"
+                                                >
+                                                    Edit <BsFillPencilFill style={{ fontSize: "24px" }} />
+                                                </Link>
+                                                <button
+                                                    onClick={handleDelete}
+                                                    className="inline-flex px-3 py-2 rounded-md text-primary font-semibold"
+                                                >
+                                                    Delete <AiFillDelete style={{ fontSize: "24px" }} />
+                                                </button>
+                                            </>
+                                        )
+                                        : (
+                                            <>
+                                                <h2 className='text-center text-gray-400 mb-2'>
+                                                    Post By: {postDetails?.authorId?.username}
+                                                </h2>
+                                            </>
+                                        )
                                     }
+                                </div>
+                                <span className='text-center py-2 px-2 rounded bg-indigo-50 text-indigo-500 text-sx font-medium tracking-widest'>
+                                    {postDetails?.category}
                                 </span>
+                                {/* <p className='leading-relaxed mb-8'>
+                                    {postDetails?.desc}
+                                </p> */}
+                                <div dangerouslySetInnerHTML={{ __html: postDetails?.desc }} />
+                                <div className='flex items-center flex-wrap pb-4 mb-4 border-b-2 border-gray-100 mt-auto w-full'>
+                                    <span className='text-gray-400 mr-3 inline-flex items-center ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-500'>
+                                        {postLikes}
+                                        {" "}
+                                        {
+                                            isLiked
+                                                ? <AiFillLike size={16} onClick={handleLike} />
+                                                : <AiOutlineLike size={16} onClick={handleLike} />
+                                        }
+                                    </span>
+                                </div>
                             </div>
-                        </div>
+                        : <p>Loading ... </p>}
                     </div>
                     <h2 className='text-center'>
                         Comment Section
