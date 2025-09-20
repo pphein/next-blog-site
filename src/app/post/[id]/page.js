@@ -39,8 +39,8 @@ const PostDetail = (ctx) => {
         setError("Failed to load comments");
       }
     }
-    if (session) fetchComments();
-  }, [session, ctx.params.id, baseUrl]);
+    fetchComments();
+  }, [ctx.params.id, baseUrl]);
 
   // Fetch post
   useEffect(() => {
@@ -65,7 +65,7 @@ const PostDetail = (ctx) => {
       }
     }
     fetchPost();
-  }, [session, ctx.params.id, baseUrl]);
+  }, [ctx.params.id, baseUrl]);
 
   const handleDelete = async () => {
     try {
