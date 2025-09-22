@@ -40,7 +40,7 @@ const PostDetail = (ctx) => {
       }
     }
     fetchComments();
-  }, [ctx.params.id, baseUrl]);
+  }, [session,ctx.params.id, baseUrl]);
 
   // Fetch post
   useEffect(() => {
@@ -65,7 +65,7 @@ const PostDetail = (ctx) => {
       }
     }
     fetchPost();
-  }, [ctx.params.id, baseUrl]);
+  }, [session,ctx.params.id, baseUrl]);
 
   const handleDelete = async () => {
     try {
