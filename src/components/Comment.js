@@ -30,13 +30,13 @@ const Comment = ({ comment, setComments }) => {
             <div className='container px-5 py-4 mx-auto'>
                 <div className='flex items-center mx-auto border-b pb-6 border-gray-200 sm:flex-row flex-col'>
                     <div className='flex-grow sm:text-left text-center mt-6 sm:mt-0'>
-                        <p className='leding-relaxed text-base'>
-                            {comment?.text}
-                        </p>
-                        <h3 className='mt-3 text-indigo-500 inline-flex items-center'>
+                        <h3 className='mt-3 text-indigo-500 inline-block items-center'>
                             {comment?.authorId?.username}
                         </h3>
-                        <h3 className='text-gray-900 text-lg title-font font-medium mb-2'>
+                        <p className='inline-block leding-relaxed text-base'>
+                            : {comment?.text}
+                        </p>
+                        <h3 className='inline-block ml-6 item-center text-gray-900 text-lg title-font font-medium'>
                             {
                                 session?.user?._id === comment?.authorId?._id && (
                                     <BsTrash onClick={handleDeleteComment} />
